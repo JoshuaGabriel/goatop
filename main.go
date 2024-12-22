@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"github.com/JoshuaGabriel/goup/cmd"
+	"os"
 )
 
 func main() {
