@@ -1,14 +1,14 @@
 package cmd
 
 import (
-	"github.com/rivo/tview"
 	"fmt"
-	"sort"
-	"time"
+	"github.com/rivo/tview"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/mem"
 	"github.com/shirou/gopsutil/v3/process"
 	"github.com/urfave/cli/v2"
+	"sort"
+	"time"
 )
 
 func cmdMonitor() *cli.Command {
