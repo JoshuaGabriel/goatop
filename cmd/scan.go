@@ -4,6 +4,7 @@ import (
 	"fmt"
 	// "github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+	"time"
 	// "github.com/shirou/gopsutil/v4/cpu"
 	// "github.com/shirou/gopsutil/v4/mem"
 	"github.com/urfave/cli/v2"
@@ -26,9 +27,32 @@ $ goup scan
 }
 
 func scanResource(ctx *cli.Context) error {
-	box := tview.NewBox().SetBorder(true).SetTitle("Hello, world!")
-	if err := tview.NewApplication().SetRoot(box, true).Run(); err != nil {
-		return fmt.Errorf("application error: %w", err)
+
+	// Create a new TextView
+	textView := tview.NewTextView().
+		SetTextAlign(tview.AlignCenter).
+		SetDynamicColors(true) // Enable color tags if needed
+
+	// Create a new application
+	app := tview.NewApplication()
+
+	// Update the TextView in a goroutine
+	go func() {
+		number := 0
+		for {
+			time.Sleep(1 * time.Second) // Wait for 1 second
+			number++
+
+			// Update the TextView's text
+			app.QueueUpdateDraw(func() {
+				textView.SetText(fmt.Sprintf("Incrementing Number: %d", number))
+			})
+		}
+	}()
+
+	// Set the root and run the application
+	if err := app.SetRoot(textView, true).Run(); err != nil {
+		fmt.Println("ooga")
 	}
 	return nil
 }
